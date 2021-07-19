@@ -1,5 +1,6 @@
 import proxyData from './proxyData';
 import observe from './observe';
+import { compileToRenderFunction } from './compiler';
 function initState(vm) {
 	var option = vm.$options;
 	if (option.data) {
@@ -14,4 +15,31 @@ function initData(vm) {
 	}
 	observe(vm._data);
 }
-export { initState };
+function initMixin(Vue) {
+	Vue.prototype._init = function (options) {
+		var vm = this;
+		vm.$options = options;
+		initState(vm);
+
+		if (vm.$options.el) {
+			vm.$mount(vm.$options.el);
+		}
+	};
+	Vue.prototype.$mount = function (el) {
+		var vm = this;
+		var options = vm.$options;
+		el = document.querySelector(el);
+		vm.$el = el;
+
+		if (!options.render) {
+			// 不存在render函数
+			let template = options.template;
+			if (!template && el) {
+				// 不存在tempalte属性
+				template = el.outerHTML;
+			}
+			const render = compileToRenderFunction(template);
+		}
+	};
+}
+export { initMixin };

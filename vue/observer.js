@@ -6,7 +6,7 @@
  */
 import { defineReactiveData } from './reactive';
 import { arrMethods } from './array';
-import { observeArr } from './observeArr';
+import observeArr from './observeArr';
 function Observer(data) {
 	if (Array.isArray(data)) {
 		// array

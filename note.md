@@ -55,7 +55,34 @@ array=>observeArr
 
 
 
+插件化开发
+```js
+  function Vue(){
+    this._init()
+  }
+  initMixin()
 
 
-# 进度
-模板编译1
+  function initMixin(){
+    Vue.prototype._init(){
+      initState()
+    }
+  }
+
+  
+
+```
+
+模板编译
+1. 获取template顺序=>render-> template:-> <template> 
+2. template => AST树
+3. AST => render函数
+4. render函数 => 虚拟节点
+5. 设置PATCH =>打补丁到真实DOM
+
+
+可能需要看 虚拟节点和DOM diff算法源码实现
+
+
+template => AST树
+流程是通过正则匹配，每匹配一部分就删除，比如说`<div =>type:div`
