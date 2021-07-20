@@ -7,6 +7,7 @@ let vm = new Vue({
 		return {
 			title: '学生列表',
 			teachers: ['mary', 'john'],
+			age: 12,
 			student: [
 				{
 					id: 1,

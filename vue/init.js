@@ -1,6 +1,7 @@
 import proxyData from './proxyData';
 import observe from './observe';
 import { compileToRenderFunction } from './compiler';
+import { mountComponent } from './lifecycle';
 function initState(vm) {
 	var option = vm.$options;
 	if (option.data) {
@@ -26,6 +27,7 @@ function initMixin(Vue) {
 		}
 	};
 	Vue.prototype.$mount = function (el) {
+		// 编译过程的开始
 		var vm = this;
 		var options = vm.$options;
 		el = document.querySelector(el);
@@ -39,7 +41,9 @@ function initMixin(Vue) {
 				template = el.outerHTML;
 			}
 			const render = compileToRenderFunction(template);
+			options.render = render;
 		}
+		mountComponent(vm);
 	};
 }
 export { initMixin };

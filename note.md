@@ -86,3 +86,11 @@ array=>observeArr
 
 template => AST树
 流程是通过正则匹配，每匹配一部分就删除，比如说`<div =>type:div`
+
+ AST => render函数
+ 将AST转为 _c,_v,_s
+
+
+render函数 => 虚拟节点
+
+
